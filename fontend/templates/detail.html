@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>电影详情</title>
+    <link rel="stylesheet" href="../static/css/main.css"/>
+    <link rel="stylesheet" href="../static/css/style.css"/>
+    <link rel="stylesheet" href="../static/css/icofont.css"/>
+    <link rel="stylesheet" href="../static/css/mian_style.css"/>
+    <style>
+        .transformers-content {
+            height: 500px;
+            width: 350px;
+        }
+
+        .transformers-content > h2 + a.theme-btn {
+            margin: 15px 10px 20px 0;
+        }
+
+        h2 {
+            margin: 20px;
+        }
+
+        body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+            margin: 0;
+            padding: 5px;
+        }
+
+        #div_digg {
+            float: right;
+            margin-bottom: 10px;
+            margin-right: 30px;
+            font-size: 12px;
+            width: 125px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .diggit {
+            float: left;
+            width: 46px;
+            height: 52px;
+            background: url(/static/images/upup.gif) no-repeat;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 2px;
+            padding-top: 5px;
+        }
+
+        .buryit {
+            float: right;
+            margin-left: 20px;
+            width: 46px;
+            height: 52px;
+            background: url(/static/images/downdown.gif) no-repeat;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 2px;
+            padding-top: 5px;
+        }
+
+        .select-container {
+            position: relative;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+
+        .reply_btn {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<section class="transformers-area">
+    <div class="container">
+        <div class="transformers-box">
+            <div class="row flexbox-center">
+                <div class="col-lg-5 text-lg-left text-center">
+                    <div class="transformers-content">
+                        <img id="poster" src="" alt="about" width="100%" height="200px"/>
+                    </div>
+                </div>
+                <div class="col-lg-7" style="margin-left: 50px;">
+                    <div class="transformers-content mtr-30">
+                        <h2 id="title">title</h2>
+                        <a id="player" href="#" class="theme-btn">点击播放</a>
+                        <a href="#" id="upload_user" class="theme-btn">upload_user</a>
+                        <ul>
+                            <li>
+                                <div class="transformers-left">
+                                    演员阵容:
+                                </div>
+                                <div id="actor" class="transformers-right">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    电影类型:
+                                </div>
+                                <div id="classification" class="transformers-right">
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    电影时长:
+                                </div>
+                                <div id="film_length" class="transformers-right">
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    上映地区:
+                                </div>
+                                <div id="release_area" class="transformers-right">
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    上映时间:
+                                </div>
+                                <div id=release_time class="transformers-right">
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    豆瓣评分:
+                                </div>
+                                <div id="score" class="transformers-right">
+
+                                </div>
+                            </li>
+                            <li>
+                                <div class="transformers-left">
+                                    热评数量：
+                                </div>
+                                <div id="comment" class="transformers-right">
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- transformers area end -->
+<!-- details area start -->
+<section class="details-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="details-content">
+                    <div class="details-overview">
+                        <h2>剧情简介</h2>
+                        <p id="desc"></p>
+                    </div>
+                    <!--点赞-->
+                    <div id="div_digg">
+                        <div class="diggit action">
+                            <span class="diggnum" id="digg_count">0</span>
+                        </div>
+                        <div class="buryit action">
+                            <span class="burynum" id="bury_count">0</span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="diggword" style="color: red;margin-top: 60px;">
+                            <span id="digg_tips"></span>
+                        </div>
+                    </div>
+                    <div class="details-reply">
+                        <h2>热门评论</h2>
+                        <div id="comment_list" class="row">
+                            <!--评论内容渲染-->
+
+                        </div>
+                        <hr style="padding: 0">
+                        <h4>评论内容</h4>
+                        <div class="textarea-container">
+                            <textarea id="comment_content" placeholder="在这里留下你的评论吧..."></textarea>
+                        </div>
+                    </div>
+                    <div class="details-comment">
+                        <button class="comment_btn theme-btn theme-btn2">发表评论</button>
+                        <span style="margin-left: 10px" id="tips"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- details area end -->
+<footer id="end">
+    <div class="container">
+				<span class="company">
+					XXX
+				</span>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="../static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../static/js/main.js"></script>
+<script>
+    token = window.localStorage.getItem('video_token');
+    username = window.localStorage.getItem('video_user');
+    let url = window.location.toString();
+    let rank = url.split('/')[4]
+    $('#player').attr('href', '/movie/player/' + rank)
+    // console.log(token, username)
+    // 初始页面渲染
+    // alert(token)
+    $.ajax({
+        url: 'http://127.0.0.1:8000/v1/movies/' + rank,
+        type: 'get',
+        dataType: 'json',
+        beforeSend: function (request) {
+            request.setRequestHeader("Authorization", token);
+        },
+        success: function (data) {
+            $('#poster').attr('src', 'http://127.0.0.1:8000/media/' + data.data.poster)
+            $('#title').text(data.data.title)
+            $('#upload_user').text('视频发布者：' + data.data.upload_user)
+            // 个人空间（改！！）
+            if (username === data.data.upload_user) {
+                $('#upload_user').attr('href', '/' + data.data.upload_user + '/home/profile')
+            } else {
+                $('#upload_user').attr('href', '/' + data.data.upload_user + '/space')
+            }
+            // 电影分类信息
+            $.each(data.data.classifications, function (index, classification_obj) {
+                // console.log(index+classification)
+                $('#classification').append(`
+                <a href="/movies/classification/?type=${classification_obj.c_id}">${classification_obj.classification}</a>&nbsp;&nbsp;&nbsp;
+                `)
+            })
+            // 详细信息渲染
+            $('#actor').text(data.data.actor)
+            $('#film_length').text(data.data.film_length)
+            $('#release_area').text(data.data.release_area)
+            $('#release_time').text(data.data.release_time)
+            $('#score').text(data.data.score)
+            $('#desc').text(data.data.desc)
+            $('#comment').text(data.data.comments.length)
+            $('#player').attr('href', '/movie/player/' + rank)
+            // 评论列表渲染
+            // console.log(data.data.comments, data)
+            let floor = 1
+            $.each(data.data.comments, function (index, comment_obj) {
+                let s = `<div class="col-lg-4">
+                                                <div class="select-container">
+                                                     <a href="#"># ${floor}楼</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <span>${comment_obj.created_time}</span>
+                                                        <i class="icofont icofont-ui-user">
+                                                        <a href="" style="padding-left: 10px;padding-right: 30px">${comment_obj.comment_user}</a>
+                                                        <a class="reply_btn" onclick="reply('${comment_obj.comment_user}','${comment_obj.pid_id}')">回复</a>
+                                                        </i>
+                                                </div>
+                                                <div class="select-container comment_con" comment_id='${comment_obj.pid_id}'>
+                                                         <p>${comment_obj.content}</p>
+                                                </div>
+                                            </div>`
+                if (!comment_obj.pid) {
+                    $('#comment_list').append(s);
+                    floor++;
+                } else {
+                    $(`[comment_id='${comment_obj.pid}']`).append(`<div style="margin-left: 60px"><div class="select-container">
+                                                                        <span>${comment_obj.created_time}</span>
+                                                                        <i class="icofont icofont-ui-user">
+                                                                        <a href="" style="padding-left: 10px;padding-right: 30px">${comment_obj.comment_user}</a>
+                                                                        <a class="reply_btn" onclick="reply('${comment_obj.comment_user}','${comment_obj.pid_id}')">回复</a>
+                                                                        </i>
+                                                                      </div>
+                                                                       <div class="select-container comment_con" comment_id='${comment_obj.pid_id}'>
+                                                                       <p>${comment_obj.content}</p>
+                                                                        </div></div>`);
+                }
+            })
+        }
+    })
+    // 初始点赞数渲染ajax
+    $.ajax({
+        url: 'http://127.0.0.1:8000/v1/like/?movie_id=' + rank,
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            if (data.code === 200) {
+                // console.log(data)
+                $('#digg_count').text(data.data.digg_num);
+                $('#bury_count').text(data.data.bury_num);
+            } else {
+                alert('数据加载失败')
+            }
+        }
+    })
+    // 动态更新点赞ajax
+    $('#div_digg .action').click(function () {
+        let is_up = $(this).hasClass('diggit');
+        // alert(is_up)
+        let data = {
+            'is_up': is_up,
+            'movie_id': rank,
+        };
+        $.ajax({
+            url: 'http://127.0.0.1:8000/v1/like/is_up',
+            type: 'post',
+            contentType: 'applications/json',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", token);
+            },
+            success: function (data) {
+                // console.log(data)
+                if (data.code === 200) {
+                    if (data.data.is_up) {
+                        let val = parseInt($('#digg_count').text());
+                        $('#digg_count').text(val + 1);
+                    } else {
+                        let val = parseInt($('#bury_count').text());
+                        $('#bury_count').text(val + 1);
+                    }
+                } else {
+                    $('#digg_tips').html(data.error)
+                    setTimeout(function () {
+                        $('#digg_tips').html('')
+                    }, 2000)
+                }
+            },
+            error: function (data) {
+                console.log(data.responseText, typeof data.responseText)
+                $('#digg_tips').html('您还未登陆！请先<a href="/login" target="_self">登陆</a>')
+            }
+        })
+    })
+    // 评论请求
+    let pid = '';
+    $('.comment_btn').click(function () {
+        let content = $('#comment_content').val();
+        let data = {
+            'movie_id': rank,
+            'content': content,
+            'pid': pid,
+        }
+        $.ajax({
+            url: 'http://127.0.0.1:8000/v1/comments/',
+            type: 'post',
+            contentType: 'applications/json',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", token);
+            },
+            success: function (data) {
+                // console.log(data)
+                if (data.code === 200) {
+                    let s = `<div class="col-lg-4">
+                                <div class="select-container">
+                                 <a href="#">#  楼</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span>${data.data.created_time}</span>
+                                    <i class="icofont icofont-ui-user">
+                                    <a href="" style="padding-left: 10px;padding-right: 30px">${data.data.username}</a>
+                                    </i>
+                                    </div>
+                                     <div class="select-container comment_con">
+                                     <p>${data.data.content}</p>
+                                     </div>
+                                </div>`;
+                    $('#comment_list').append(s)
+                } else {
+                    $('#tips').html(`<p style="color: red">${data.error}</p>`)
+                    setTimeout(function () {
+                        $('#tips').text('')
+                    }, 1000)
+                }
+                // 清空评论
+                $('#comment_content').val('');
+                pid = '';
+            },
+            error: function (data) {
+                // console.log(data)
+                $('#tips').html('您还未登陆！请先<a style="color: red;" href="/login" target="_self">登陆</a>')
+            }
+        })
+    })
+
+    // 回复事件
+    function reply(username, id) {
+        pid = id
+        // alert(pid + username)
+        $('#comment_content').focus();
+        $('#comment_content').val('@' + username + '\n');
+    }
+</script>
+</html>

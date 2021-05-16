@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>电影网站</title>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+    <link rel="stylesheet" href="/static/css/icofont.css"/>
+    <link rel="stylesheet" href="/static/css/mian_style.css"/>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header_area">
+            <div class="logo">
+                <a href="/index">
+                    <img src="/static/images/logo.png" alt="logo"/>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <!--头部结束-->
+</header>
+
+<section class="transformers-area">
+    <div class="container">
+        <div class="transformers-box" style="height: 520px">
+    <video src="" controls="controls" autoplay height="560px"></video>
+        </div>
+    </div>
+</section>
+
+
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/static/js/main.js"></script>
+<script>
+    token = window.localStorage.getItem('video_token');
+    username = window.localStorage.getItem('video_user');
+    // console.log(token, username)
+    let url = window.location.toString();
+    let v_id = url.split('/')[5]
+    // alert(v_id)
+    $.ajax({
+        url:'http://127.0.0.1:8000/v1/movies/shortvideo?v_id='+v_id,
+        type:'get',
+        dataType: 'json',
+        success: function (data){
+            console.log(data)
+            $('video').attr('src','http://127.0.0.1:8000/media/'+data.data['video_file'])
+        }
+    })
+
+
+</script>
+</html>
+
+
+
+

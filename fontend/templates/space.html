@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/assets/images/favicon.png">
+    <title>个人空间页面</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../../static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../static/css/user_style.css" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="../../static/css/colors/default-dark.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="fix-header card-no-border fix-sidebar">
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Admin Pro</p>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <header class="topbar">
+        <nav class="navbar top-navbar navbar-expand-md navbar-light">
+            <!-- ============================================================== -->
+            <!-- Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/index">
+                    <!-- Logo icon --><b>
+                    <img src="../../static/assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
+                </b>
+                    <!--End Logo icon -->
+                    <!-- Logo text -->
+                    <span>
+                            <img src="../../static/assets/images/logo-text.png" alt="homepage" class="dark-logo"/>
+                        </span>
+                </a>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-collapse">
+                <!-- ============================================================== -->
+                <!-- toggle and nav items -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav mr-auto">
+                    <!-- This is  -->
+                    <li class="nav-item"><a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                                            href="javascript:void(0)"><i class="ti-menu"></i></a></li>
+                </ul>
+                <!-- ============================================================== -->
+                <!-- User profile and search -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav my-lg-0">
+                    <li class="nav-item">
+                        <a id="profile-pic" class="nav-link waves-effect waves-dark" href="#"><img height="30"
+                                                                                  src="#" alt="user"
+                                                                                  class="profile-pic"/></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="left-sidebar">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                    <li><a id="my_profile" class="waves-effect waves-dark active" href="#" aria-expanded="false"><i
+                            class="mdi mdi-account-check"></i><span class="hide-menu">ta的信息</span></a></li>
+
+                </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+
+    <div class="page-wrapper">
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <!-- Column -->
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <center class="m-t-30"><label for="avatar" style="cursor: pointer"> <img src="#" width="200"
+                                                                                                     id="avatar"/>
+                                <h4 class="card-title m-t-10"></h4></label>
+                                <div class="row text-center justify-content-md-center">
+                                    <div class="col-5"><a id="fans" href="javascript:void(0)" class="link"><i
+                                            class="icon-people"></i> <font class="font-medium"></font>粉丝数：</a></div>
+                                    <div class="col-5"><a id="attention" href="javascript:void(0)" class="link"><i
+                                            class="icon-people"></i> <font class="font-medium"></font>关注数：</a></div>
+                                </div>
+                                <button class="attention_btn"></button>
+                                <span class="attention_tip" style="display: block"></span>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+                <!-- Column -->
+                <div class="col-lg-8 col-xlg-9 col-md-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="form-horizontal form-material">
+                                <div class="form-group">
+                                    <span class="pull-left center">用户名:</span>
+                                    <span class="nickname"></span>
+                                </div>
+                                <div class="form-group">
+                                    <span class="pull-left center">性别:</span>
+                                    <span class="gender"></span>
+                                </div>
+                                <div class="form-group">
+                                    <span class="pull-left center">邮箱:</span>
+                                    <span class="email"></span>
+                                </div>
+                                <div class="form-group">
+                                    <span class="pull-left center">个性签名:</span>
+                                    <span class="sign"></span>
+                                </div>
+                                <div class="form-group">
+                                    <span class="pull-left center">ta的电影:</span>
+                                    <span class="video"></span>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../../static/assets/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="../../static/assets/plugins/bootstrap/js/popper.min.js"></script>
+<script src="../../static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="../../static/js/perfect-scrollbar.jquery.min.js"></script>
+<!--Wave Effects -->
+<script src="../../static/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="../../static/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="../../static/js/custom.min.js"></script>
+
+<script>
+    token = window.localStorage.getItem('video_token');
+    username = window.localStorage.getItem('video_user');
+    let url = window.location.toString();
+    let query_username = url.split('/')[3]
+
+    // 初始数据加载
+    $.ajax({
+        type: 'get',
+        url: 'http://127.0.0.1:8000/v1/users/' + query_username + '/space?username=' + username,
+        success: function (data) {
+            if (data.code === 200) {
+                console.log(data)
+                if (data.is_fans) {
+                    $('.attention_btn').text('取关ta')
+                    $('.attention_btn').attr('onclick', "not_attention()")
+                } else {
+                    $('.attention_btn').text('关注ta')
+                    $('.attention_btn').attr('onclick', "attention()")
+                }
+                $('.profile-pic').attr('src', 'http://127.0.0.1:8000/media/' + data.data['avatar'])
+                $('#profile-pic').attr('href', '/'+data.data['username']+'/space')
+                $('#avatar').attr('src', 'http://127.0.0.1:8000/media/' + data.data['avatar'])
+                $('#fans').text('粉丝数：' + data.data['fans_count'])
+                $('#attention').text('关注数：' + data.data['attention_count'])
+                $('.nickname').text(data.data['username'])
+                $('.gender').text(data.data['gender'])
+                $('.sign').text(data.data['sign'])
+                $('.email').text(data.data['email'])
+
+                $.each(data.data.movies, function (index, movie_info){
+                    // console.log(movie_info[0]+movie_info[1])
+                    $('.video').append(`<a style="padding: 10px" href="/movie/${movie_info[0]}">${movie_info[1]}</a>`)
+                })
+            } else {
+                // alert('路由有误！')
+                window.location.href = '/404'
+            }
+        }
+    })
+
+    // 关注函数
+    function attention() {
+        $.ajax({
+            url: 'http://127.0.0.1:8000/v1/users/' + query_username + '/fans',
+            type: 'post',
+            data: {'name': query_username},
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", token);
+            },
+            success: function (data) {
+                $('.attention_btn').text('取关ta')
+                $('.attention_btn').attr('onclick', "not_attention()")
+                window.location.reload()
+
+            },
+            error: function (data) {
+                $('.attention_tip').html('请先<a style="color: red" href="/login">登录</a>!')
+                setTimeout(function () {
+                    $('.attention_tip').text('')
+                }, 2000)
+            }
+        })
+    }
+
+    // 取关函数
+    function not_attention() {
+        $.ajax({
+            url: 'http://127.0.0.1:8000/v1/users/' + query_username + '/attention',
+            type: 'post',
+            data: {'name': query_username},
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", token);
+            },
+            success: function (data) {
+                window.location.reload()
+                $('.attention_btn').text('关注ta')
+                $('.attention_btn').attr('onclick', "attention()")
+            },
+            error: function (data) {
+                $('.attention_tip').html('请先<a style="color: red" href="/login">登录</a>!')
+                setTimeout(function () {
+                    $('.attention_tip').text('')
+                }, 2000)
+            }
+        })
+    }
+
+    // 关注数链接
+    $('#attention').attr('href','/'+query_username+'/attention')
+    $('#fans').attr('href','/'+query_username+'/fans')
+
+</script>
+
+</body>
+</html>
+
+

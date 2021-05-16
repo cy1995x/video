@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>电影上传页面</title>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+    <link rel="stylesheet" href="/static/css/icofont.css"/>
+    <link rel="stylesheet" href="/static/css/mian_style.css"/>
+</head>
+<body>
+<section class="details-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="details-content">
+                    <div class="details-reply">
+                        <h2 style="margin-bottom: 30px">上传视频</h2>
+                        <form id="form">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <span>电影名称:</span>
+                                    <div class="select-container">
+                                        <input type="text" name="title" placeholder="在此输入电影名..."/>
+                                        <i class="icofont icofont-video"></i><span style="color: red" id="title"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span>电影演员:</span>
+                                    <div class="select-container">
+                                        <input type="text" name="actor" placeholder="在此输入电影演员..."/>
+                                        <i class="icofont icofont-user"></i><span style="color: red" id="actor"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span>电影评分:</span>
+                                    <div class="select-container">
+                                        <input type="text" name="score" placeholder="在此输入电影评分（1-10）..."/>
+                                        <i class="icofont icofont-score-board"></i><span style="color: red" id="score"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span>电影海报:</span>
+                                    <div class="select-container">
+                                        <input type="file" name="poster" id="poster"/>
+                                        <i class="icofont icofont-picture"></i>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span>电影内容:</span>
+                                    <div class="select-container">
+                                        <input type="file" name="movie_file" id="movie_file"/>
+                                        <i class="icofont icofont-video"></i>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <span>电影简介:</span>
+                                    <div class="textarea-container">
+                                        <textarea name="desc" placeholder="在此输入电影简介："></textarea>
+                                        <button><i class="icofont icofont-file-text"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form><div class="details-comment">
+                                <button class="theme-btn theme-btn2" onclick="upload()">上传视频</button>
+                                <p></p>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- details area end -->
+<footer id="end">
+    <div class="container">
+				<span class="company">
+					XXX
+				</span>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/static/js/main.js"></script>
+<script>
+    token = window.localStorage.getItem('video_token');
+    username = window.localStorage.getItem('video_user');
+    function upload() {
+        let form_data = new FormData();
+        let request_data = $('#form').serializeArray();
+        $.each(request_data, function (index, data) {
+            form_data.append(data.name, data.value);
+        })
+        form_data.append('poster', $('#poster')[0].files[0]);
+        form_data.append('movie_file', $('#movie_file')[0].files[0]);
+        // console.log(form_data)
+        $.ajax({
+            url: 'http://127.0.0.1:8000/v1/movies/control',
+            type: "post",
+            contentType: false,
+            processData: false,
+            data: form_data,
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", token);
+            },
+            success: function (data) {
+                if (data.code===200){
+                    console.log(data)
+                    window.location.href = '/movie/'+data.movie_id
+                }else {
+                    // alert(data.error)
+                    console.log(data.error)
+                    $('#actor').text(data.error.actor)
+                    $('#title').text(data.error.title)
+                    $('#score').text(data.error.score)
+                    setTimeout(function (){
+                    $('#actor').text('')
+                    $('#title').text('')
+                    $('#score').text('')
+                    },1000)
+                }
+            },
+
+        })
+    }
+</script>
+</html>

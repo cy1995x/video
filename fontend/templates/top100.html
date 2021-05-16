@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>电影top100页面</title>
+    <link rel="stylesheet" href="../static/css/main.css"/>
+    <link rel="stylesheet" href="../static/css/style.css"/>
+    <link rel="stylesheet" href="../static/css/icofont.css"/>
+    <link rel="stylesheet" href="../static/css/mian_style.css"/>
+    <style>
+
+        #next, #prev {
+            margin-bottom: -10px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .details-thumb > div {
+            padding-top: 20px;
+            display: flex;
+            width: 50%;
+            margin-left: 230px;
+            margin-right: 230px;
+        }
+
+        a {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+
+        .news-bg-1 {
+            background: url('../static/images/news1.jpg') no-repeat center / cover;
+            height: 250px;
+        }
+
+        .news-date {
+            left: 240px;
+        }
+
+        .news-content {
+            left: 250px;
+        }
+
+        #my_diy {
+            line-height: 0;
+        }
+
+        .tags-panel li, .tags-panel ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .tags-line {
+            padding: 10px 0 !important;
+        }
+
+        .tags li {
+            display: inline-block;
+            text-align: -webkit-match-parent;
+            padding: 10px;
+            list-style-type: none;
+        }
+
+    </style>
+</head>
+<body>
+<!--头部开始	-->
+<header class="header">
+    <div class="container">
+        <div class="header_area">
+            <div class="logo">
+                <a href="/index">
+                    <img src="../static/images/logo.png" alt="logo"/>
+                </a>
+            </div>
+            <div class="meau">
+                <ul>
+                    <li>
+                        <a href="/index">首页</a>
+                    </li>
+                    <li>
+                        <a href="/video">电影</a>
+                    </li>
+                    <li>
+                        <a class="active" href="/top100">top100</a>
+                    </li>
+                    <li style="width: 240px;">
+                        <a href="/login" class="theme-btn">
+                            <i class="icofont icofont-ticket"></i>
+                            &nbsp;&nbsp;登陆
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--头部结束-->
+</header>
+
+<section class="blog-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title pb-20">
+                    <h1><i class="icofont icofont-star"></i> Top 100</h1>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div id="top100_content" class="col-lg-12">
+                <!--             top100电影内容-->
+
+            </div>
+            <div class="details-thumb">
+                <div class="details-thumb-prev">
+                    <div class="thumb-icon">
+                        <i class="icofont icofont-simple-left"></i>
+                    </div>
+                    <a>
+                        <div class="thumb-text">
+                            <a id="prev" href="#">上一页</a>
+                        </div>
+                    </a>
+                </div>
+                <div class="details-thumb-next">
+                    <a>
+                        <div class="thumb-text">
+                            <a id="next" href="#">下一页</a>
+                        </div>
+                    </a>
+                    <div class="thumb-icon">
+                        <i class="icofont icofont-simple-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- blog area end -->
+
+<footer id="end">
+    <div class="container">
+				<span class="company">
+					XXX
+				</span>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="../static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../static/js/main.js"></script>
+<script>
+    token = window.localStorage.getItem('video_token');
+    username = window.localStorage.getItem('video_user');
+    let url = window.location.toString();
+    let cursor = url.split('/')[4]
+    if (!cursor){
+        cursor=''
+    }
+    // console.log(token, username)
+    if (username) {
+        $('.theme-btn').text(username + "个人中心")
+        $('.theme-btn').attr('href', '/' + username + '/home/profile')
+    }
+
+    $.ajax({
+        url: 'http://127.0.0.1:8000/v1/movies/?cursor='+cursor,
+        type: 'get',
+        dataType:'json',
+        success: function (data) {
+             console.log(data)
+             $.each(data.results, function (index, obj) {
+                    $('#top100_content').append(`
+                    <div class="single-news">
+                        <div class="news-bg-1">
+                            <img src='http://127.0.0.1:8000${obj.poster}' alt="" style="height: 100%">
+                        </div>
+                        <div class="news-date">
+                            <h2><span>${obj.release_time.month}</span> ${obj.release_time.day}</h2>
+                            <h1>${obj.release_time.year}</h1>
+                        </div>
+                        <div class="news-content">
+                            <h2>${obj.title}</h2>
+                            <p>主演：${obj.actor}</p>
+                        </div>
+                        <a href="/movie/${obj.rank}" target="_blank">Read More</a>
+                    </div>
+                `)
+                })
+            if (!data.previous) {
+                let next_cursor = data.next.split('=')[1]
+                $('#next').attr('href','/top100/'+next_cursor)
+                $('#prev').click(function () {
+                    alert('已经是第一页了！')
+                })
+            }else if(!data.next){
+                let prev_cursor = data.previous.split('=')[1]
+                $('#prev').attr('href','/top100/'+prev_cursor)
+                $('#next').click(function () {
+                    alert('已经是最后一页了！')
+                })
+            }else {
+                let prev_cursor = data.previous.split('=')[1]
+                let next_cursor = data.next.split('=')[1]
+                $('#prev').attr('href','/top100/'+prev_cursor)
+                $('#next').attr('href','/top100/'+next_cursor)
+            }
+
+
+        }
+    })
+
+
+</script>
+</html>

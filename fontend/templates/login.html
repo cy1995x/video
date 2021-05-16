@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>登陆注册页面</title>
+    <link rel="stylesheet" href="../static/css/style_login.css">
+    <style>
+        #diy {
+            padding: 10px 30px 0;
+        }
+
+        #sms {
+            font-size: 10px;
+            margin-bottom: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="content">
+    <div class="form sign-in">
+        <h2>欢迎回来</h2>
+        <label>
+            <span>用户名</span>
+            <input type="text" id="login_username">
+        </label>
+        <label>
+            <span>密码</span>
+            <input type="password" id="login_password"/>
+        </label>
+
+        <p class="forgot-pass"><a href="javascript:">忘记密码？</a></p>
+        <button type="button" class="submit" onclick="login()">登 录</button>
+        <button type="button" class="fb-btn">使用 <span>facebook</span> 帐号登录</button>
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+                <h2>还未注册？</h2>
+                <p>立即注册，享受别样人生！</p>
+            </div>
+            <div class="img__text m--in">
+                <h2>已有帐号？</h2>
+                <p>有帐号就登录吧，好久不见了！</p>
+            </div>
+            <div class="img__btn">
+                <span class="m--up">注 册</span>
+                <span class="m--in">登 录</span>
+            </div>
+        </div>
+        <div class="form sign-up" id="diy">
+            <h2>立即注册</h2>
+            <label>
+                <span>用户名</span>
+                <input type="text" class="username" name="username"/>
+            </label>
+            <label>
+                <span>密码</span>
+                <input type="password" class="password_1" name="password_1"/>
+            </label>
+            <label>
+                <span>确认密码</span>
+                <input type="password" class="password_2" name="password_2"/>
+            </label>
+            <label>
+                <span>手机号</span>
+                <input type="text" class="phone" name="phone"/>
+                <input type="button" id="sms" onclick="sendSMS();settime(this)" value="免费获取验证码">
+                <div class="clear"></div>
+            </label>
+            <label>
+                <span>验证码</span>
+                <input type="text" class="sms_num" name="sms_num"/>
+            </label>
+            <button type="button" class="submit" onclick="register()">注 册</button>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/script.js"></script>
+<script src="../static/js/jquery-1.7.2.min.js"></script>
+<script>
+    function login() {
+        let username = $('#login_username').val();
+        let password = $('#login_password').val();
+        let post_data = {'username': username, 'password': password};
+        // console.log(post_data);
+        $.ajax({
+            url: 'http://127.0.0.1:8000/v1/btoken',
+            type: 'POST',
+            data: JSON.stringify(post_data),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+                if (data.code === 200) {
+                    alert('登陆成功')
+                    window.localStorage.setItem('video_token', data.data.token);
+                    window.localStorage.setItem('video_user', data.username);
+                    // 登陆成功后跳转
+                    window.location.href = '/index'
+                } else {
+                    alert(data.error)
+                    window.location.href = '/login'
+                }
+            }
+        })
+    }
+
+    var countdown = 60;
+
+    function settime(obj) {
+        if (countdown == 0) {
+            obj.removeAttribute("disabled");
+            obj.value = "免费获取验证码";
+            countdown = 60;
+            return;
+        } else {
+            obj.setAttribute("disabled", true);
+            obj.value = "重新发送(" + countdown + ")";
+            countdown--;
+        }
+        setTimeout(function () {
+                settime(obj)
+            }
+            , 1000)
+    }
+
+    // 注册
+    function register() {
+        let username = $('.username').val();
+        let password_1 = $('.password_1').val();
+        let password_2 = $('.password_2').val();
+        let phone = $('.phone').val();
+        let sms_num = $('.sms_num').val();
+        let post_data = {
+            'username': username,
+            'password_1': password_1,
+            'password_2': password_2,
+            'phone': phone,
+            'sms_num': sms_num,
+        };
+        console.log(post_data);
+        $.ajax({
+            url: 'http://127.0.0.1:8000/v1/users/',
+            type: 'POST',
+            // 将json对象序列化为json串
+            data: JSON.stringify(post_data),
+            // 前端给后端的数据类型
+            contentType: 'application/json',
+            // 后端给前端相应的数据类型
+            dataType: 'json',
+            success: function (data) {
+                if (data.code === 200) {
+                    // 在本地存储token和用户名
+                    window.localStorage.setItem('video_token', data.data.token);
+                    window.localStorage.setItem('video_user', data.username);
+                    alert('注册成功')
+                    window.location.href = '/index'
+                } else {
+                    alert(data.error)
+                    window.location.href = '/login'
+                }
+            }
+        })
+    }
+
+    // 发送短信请求
+    function sendSMS() {
+        var phone = $('.phone').val()
+        var post_data = JSON.stringify({'phone': phone})
+        console.log(post_data)
+        $.ajax({
+            url: 'http://127.0.0.1:8000/v1/users/sms',
+            type: 'POST',
+            data: post_data,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+                if (data.code === 200) {
+                    alert('短信已发送到该手机号,请注意查收！')
+                } else {
+                    alert(data.error)
+                }
+            }
+        })
+    }
+</script>
+</body>
+
+</html>
